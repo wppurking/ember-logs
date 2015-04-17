@@ -3,15 +3,15 @@
 	<!-- action='xxx' on='key-up' or key-up='actionname' -->
 	{{input value=todo.title key-up='exitEditWithEnter' bubbles=false}}
 	<span>{{todo.title}}</span>
-	<button {{action 'closeEdit' todo bubbles=false}}>Ok</button>
-	<button {{action 'removeTodo' todo bubbles=false}}>Del</button>
+	<button {{action 'closeEdit' todo bubbles=false}} class='mini ui orange button'>Ok</button>
+	<button {{action 'removeTodo' todo bubbles=false}} class='mini ui orange button'>Del</button>
 	<!-- 这里没有双向绑定, 这个点能够感知 t.title 的变化, 但无法推送自己 value 的变化给 t.title -->
 	<input value={{todo.title}} >
 {{else}}
 	<span {{action 'openEdit' todo bubbles=false}}>{{todo.title}}</span>
 	{{#if undo}}
-		<button {{action 'undo' todo}}>Undo</button>
+		<button {{action 'undo' todo}} class='mini ui orange button'>Undo</button>
 	{{/if}}
-	<button {{action 'removeTodo' todo bubbles=false}}>Del</button>
+	<button {{action 'removeTodo' todo bubbles=false}} class='mini ui orange button'>Del</button>
 {{/if}}
 

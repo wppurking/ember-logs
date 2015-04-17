@@ -6,7 +6,11 @@
 	Create New Todo: {{input value=todo.title on='key-press' action='newTodo'}}
 	</li>
 </ul>
-<div class='toolbar'>
-<button {{action 'archiveTodos'}}>Archive</button>
-</div>
+
+<ul>
+	<li>
+		<button {{action 'archiveTodos'}} class='mini ui orange button'>Archive</button>
+	</li>
+</ul>
+
 {{outlet}}
