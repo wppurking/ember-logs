@@ -1,0 +1,6 @@
+<ul>
+	{{#each t in archived}}
+		{{todo-item tagName='li' classNames='item' todo=t isEdit=false undo=true}}
+	{{/each}}
+</ul>
+{{outlet}}

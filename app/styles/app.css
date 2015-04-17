@@ -18,3 +18,11 @@ ul li.is-done {
 	color: gray;
 	text-decoration: line-through;
 }
+
+nav ul li {
+	display: inline;
+}
+
+nav ul li a.active {
+	color: blue;
+}

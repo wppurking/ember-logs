@@ -6,8 +6,7 @@ var Todo = DS.Model.extend({
 	// 是否存档
 	isArchive: DS.attr('boolean'),
 	title: DS.attr('string'),
-	createdAt: DS.attr('date'),
-	scope: DS.belongsTo('scope')
+	createdAt: DS.attr('date')
 });
 
 Todo.reopenClass({
@@ -16,7 +15,10 @@ Todo.reopenClass({
 		{id: 2, isDone: false, isArchive: false, title: '2 Todo to do.', createdAt: new Date('2015-04-12')},
 		{id: 3, isDone: false, isArchive: false, title: '3 Todo to do.', createdAt: new Date('2015-04-13')},
 		{id: 4, isDone: false, isArchive: false, title: '4 Todo to do.', createdAt: new Date('2015-04-14')},
-		{id: 5, isDone: false, isArchive: false, title: '5 Todo to do.', createdAt: new Date('2015-04-15')}
+		{id: 5, isDone: false, isArchive: false, title: '5 Todo to do.', createdAt: new Date('2015-04-15')},
+		{id: 6, isDone: true, isArchive: true, title: '6 Todo to do.', createdAt: new Date('2015-04-16')},
+		{id: 7, isDone: true, isArchive: true, title: '7 Todo to do.', createdAt: new Date('2015-04-17')},
+		{id: 8, isDone: true, isArchive: true, title: '8 Todo to do.', createdAt: new Date('2015-04-18')}
 	]
 });
 

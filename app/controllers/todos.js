@@ -33,7 +33,7 @@ export default Ember.ArrayController.extend({
 			console.log('archiveTodos..!!!..');
 			this.filter(function(todo) {
 				return todo.get('isDone');
-			}).setEach('isArchive', true);
+			}).setEach('isArchive', true).setEach('isDone', true);
 		}
 	}
 });
