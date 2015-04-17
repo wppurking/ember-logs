@@ -5,5 +5,5 @@ export default Ember.ArrayController.extend({
 		return this.store.filter('todo', function(todo) {
 			return todo.get('isArchive');
 		});
-	}.property('model.length')
+	}.property()
 });

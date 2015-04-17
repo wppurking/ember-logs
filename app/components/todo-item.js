@@ -12,7 +12,6 @@ export default Ember.Component.extend({
 			}
 		},
 		openEdit: function() {
-			console.log('')
 			console.log('Open Edit');
 			this.set('isEdit', true);
 		},
@@ -28,7 +27,8 @@ export default Ember.Component.extend({
 			this.toggleProperty('isEdit');
 		},
 		removeTodo: function(todo) {
-			todo.deleteRecord();
+			//todo.deleteRecord();
+			todo.destroyRecord();
 		},
 		undo: function(todo) {
 			todo.set('isDone', false).set('isArchive', false);
