@@ -5,6 +5,7 @@ export default Ember.Component.extend({
 	isEdit: false,
 	actions: {
 		exitEditWithEnter: function() {
+			
 			console.log(event.keyCode);
 			if(event.keyCode === 13) {
 				console.log("in Enter");

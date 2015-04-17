@@ -7,7 +7,6 @@ var app = new EmberApp();
 // TODO: 在产品环境还是需要开启
 minifyJS: {
   enabled: true
-
 };
 
 // Use `app.import` to add additional libraries to the generated
@@ -22,5 +21,7 @@ minifyJS: {
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
+app.import('bower_components/semantic-ui/dist/semantic.min.css');
+app.import('bower_components/semantic-ui/dist/semantic.min.js');
 
 module.exports = app.toTree();
