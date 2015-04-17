@@ -1,0 +1,12 @@
+<ul>
+	{{#each t in unArchive}}
+		{{todo-item tagName='li' classNames='item' todo=t isEdit=false}}
+	{{/each}}
+	<li class='item'>
+	Create New Todo: {{input value=todo.title on='key-press' action='newTodo'}}
+	</li>
+</ul>
+<div class='toolbar'>
+<button {{action 'archiveTodos'}}>Archive</button>
+</div>
+{{outlet}}

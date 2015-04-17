@@ -4,6 +4,12 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 var app = new EmberApp();
 
+// TODO: 在产品环境还是需要开启
+minifyJS: {
+  enabled: true
+
+};
+
 // Use `app.import` to add additional libraries to the generated
 // output files.
 //

@@ -1,0 +1,12 @@
+{{input type='checkbox' checked=todo.isDone}}
+{{#if isEdit}}
+	{{input value=todo.title action='exitEditWithEnter' on='key-press' bubbles=false}}
+	<span>{{todo.title}} --- {{isEdit}}</span>
+	<button {{action 'closeEdit' todo bubbles=false}}>Ok</button>
+	<button {{action 'removeTodo' todo bubbles=false}}>Del</button>
+	<!-- 这里没有双向绑定, 这个点能够感知 t.title 的变化, 但无法推送自己 value 的变化给 t.title -->
+	<input value={{todo.title}} >
+{{else}}
+	<span {{action 'openEdit' todo bubbles=false}}>{{todo.title}} --- {{isEdit}}</span>
+	<button {{action 'removeTodo' todo bubbles=false}}>Del</button>
+{{/if}}

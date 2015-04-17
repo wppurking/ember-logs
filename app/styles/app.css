@@ -1,0 +1,20 @@
+ul {
+	list-style-type: disc;
+	list-style: none;
+};
+ul li {
+	display: inline-block;
+	font-style: 
+}
+
+li.item {
+	cursor: pointer;
+	padding: 5px;
+	border: solid 1px;
+	margin-top: 1px;
+}
+
+ul li.is-done {
+	color: gray;
+	text-decoration: line-through;
+}
