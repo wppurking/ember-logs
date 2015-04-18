@@ -11,11 +11,15 @@ export default Ember.Component.extend({
 	isEdit: false,
 	actions: {
 		exitEditWithEnter: function() {
-			
 			console.log(event.keyCode);
 			if(event.keyCode === 13) {
 				console.log("in Enter");
 				this.set('isEdit', false);
+				this.get('todo').save().then(function(){
+					console.log("Save Success");
+				}, function(error) {
+					console.log(error);
+				});
 			}
 		},
 		// 可以将上面的 openEdit, closeEdit 合并, 分成上面两个写法主要是因为在页面刷新后, 点击
@@ -35,7 +39,9 @@ export default Ember.Component.extend({
 		},
 		removeTodo: function(todo) {
 			//todo.deleteRecord();
-			todo.destroyRecord();
+			todo.destroyRecord().then(null, function(error) {
+				console.log("Fail destory one record" + error);
+			});
 		},
 		undo: function(todo) {
 			todo.set('isDone', false).set('isArchive', false);

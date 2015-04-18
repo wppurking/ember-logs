@@ -24,8 +24,13 @@ export default Ember.ArrayController.extend({
 		newTodo: function() {
 			// 回车
 			if(event.keyCode === 13) {
-				this.get('todo').save();
-				this.incrementProperty('newCount', 1);
+				var self = this;
+				this.get('todo').save().then(function() {
+					self.incrementProperty('newCount', 1);
+				}, function(error) {
+					// 需要对 promise 中的异常部分进行处理.
+					console.log(error);
+				});
 			}
 		},
 
