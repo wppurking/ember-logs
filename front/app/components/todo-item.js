@@ -1,5 +1,11 @@
 import Ember from 'ember';
 
+// 在页面上测试后, 发现 Component 如果频繁计算, 其实还是会有一些慢的, 
+// 例如: 当我添加到 50 个左右的 Todo 后(用 Component 来组成的) 接下来每一次的 Todo 变化都引起
+// each 内所有的 Component 重新绘制.
+// 问题:
+// 1. 为什么每一个独立的 Component 自己的 Edit 变化会让整个 {{#each}} 中的 Component 重新绘制? 不应该只绘制自己吗?
+// 2. Compoennt 绘制速度真的很慢吗? 是因为量多导致的吗? 在 50 个量级会有明显感觉.
 export default Ember.Component.extend({
 	classNameBindings: ['todo.isDone'],
 	isEdit: false,
@@ -16,6 +22,7 @@ export default Ember.Component.extend({
 		// <span> 里面的 title 开启 isEdit 后, 只要在 Edit 模式中的 input 框中按下一个键就会自动将 isEdit 标记为 false,
 		// 这里我没有弄明白是如何变化的? 并且是所有 todo item 的 component 都会被重新绘制一遍.
 		// -- 在 archived 页面没有, 只有在 todos 页面一直有这问题.
+		// - 解决问题, 为 controller:todos 中关于 unArchive 这个 property 的监控计算问题导致, 取消了 @each.isNew
 		toggleEdit: function() {
 			console.log('toggleEdit');
 			this.toggleProperty('isEdit');
