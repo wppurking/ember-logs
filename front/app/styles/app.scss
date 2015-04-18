@@ -1,35 +1,4 @@
 @import "settings";
 
 @import "foundation";
-
-
-ul {
-	list-style-type: disc;
-	list-style: none;
-
-	li {
-		display: inline-block;
-
-		&.is-done {
-			color: gray;
-			text-decoration: line-through;
-		}
-	}
-};
-
-li.item {
-	cursor: pointer;
-	padding: 5px;
-	border: solid 1px;
-	margin-top: 1px;
-}
-
-
-nav ul li {
-	display: inline;
-
-	a.active {
-		color: blue;
-	}
-}
-
+@import "archived";
