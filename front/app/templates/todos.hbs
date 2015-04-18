@@ -1,16 +1,20 @@
-<ul>
-	{{#each t in unArchive}}
-		{{todo-item tagName='li' classNames='item' todo=t isEdit=false}}
-	{{/each}}
-	<li class='item'>
-	Create New Todo: {{input value=todo.title on='key-press' action='newTodo'}}
-	</li>
-</ul>
+<div class='row'>
+	<div class='large-12'>
+		<ul>
+			{{#each t in unArchive}}
+			{{todo-item tagName='li' classNames='item' todo=t isEdit=false}}
+			{{/each}}
+			<li class='item'>
+				Create New Todo: {{input value=todo.title on='key-press' action='newTodo'}}
+			</li>
+		</ul>
 
-<ul>
-	<li>
-		<button {{action 'archiveTodos'}} class='mini ui orange button'>Archive</button>
-	</li>
-</ul>
+		<ul>
+			<li>
+				<button {{action 'archiveTodos'}} class='mini ui orange button'>Archive</button>
+			</li>
+		</ul>
 
-{{outlet}}
+		{{outlet}}
+	</div>
+</div>

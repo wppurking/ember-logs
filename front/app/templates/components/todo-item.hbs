@@ -1,17 +1,26 @@
-{{input type='checkbox' checked=todo.isDone}}
-{{#if isEdit}}
+<div class='row'>
+	<div class='small-1 large-1'>
+		{{input type='checkbox' checked=todo.isDone}}
+	</div>
+	{{#if isEdit}}
 	<!-- action='xxx' on='key-up' or key-up='actionname' -->
-	{{input value=todo.title key-up='exitEditWithEnter' bubbles=false}}
-	<span>{{todo.title}}</span>
-	<button {{action 'closeEdit' todo bubbles=false}} class='mini ui orange button'>Ok</button>
-	<button {{action 'removeTodo' todo bubbles=false}} class='mini ui orange button'>Del</button>
-	<!-- 这里没有双向绑定, 这个点能够感知 t.title 的变化, 但无法推送自己 value 的变化给 t.title -->
-	<input value={{todo.title}} >
-{{else}}
-	<span {{action 'openEdit' todo bubbles=false}}>{{todo.title}}</span>
-	{{#if undo}}
-		<button {{action 'undo' todo}} class='mini ui orange button'>Undo</button>
+		<div class='small-5 large-5'>
+			{{input value=todo.title key-up='exitEditWithEnter' bubbles=false}}
+		</div>
+		<div class='small-6 large-6'>
+			<span>{{todo.title}}</span>
+			<button {{action 'closeEdit' todo bubbles=false}} class='button tiny info'>Ok</button>
+			<button {{action 'removeTodo' todo bubbles=false}} class='button tiny info'>Del</button>
+			<!-- 这里没有双向绑定, 这个点能够感知 t.title 的变化, 但无法推送自己 value 的变化给 t.title -->
+			<input value={{todo.title}} >
+		</div>
+	{{else}}
+		<div class='small-11 large-11'>
+			<span {{action 'openEdit' todo bubbles=false}}>{{todo.title}}</span>
+			{{#if undo}}
+			<button {{action 'undo' todo}} class='button tiny info'>Undo</button>
+			{{/if}}
+			<button {{action 'removeTodo' todo bubbles=false}} class='button tiny info'>Del</button>
+		</div>
 	{{/if}}
-	<button {{action 'removeTodo' todo bubbles=false}} class='mini ui orange button'>Del</button>
-{{/if}}
-
+</div>

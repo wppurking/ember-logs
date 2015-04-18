@@ -1,19 +1,17 @@
-<div class='ui centered grid'>
-	<div class='eight wide column'>
-		<div class='ui segment'>
-			<h2 id="title" class='ui center aligned header'>Welcome to Ember-CLI Todos App</h2>
-		</div>
+<div class='row'>
+	<div class='large-12 columns'>
+		<h2 id="title" class=''>Welcome to Ember-CLI Todos App</h2>
 		<nav>
 			<ul>
 				<li>{{#link-to 'todos'}}工作清单 Todos{{/link-to}}</li>
 				<li>{{#link-to 'archived'}}存档清单 Todos{{/link-to}}</li>
 			</ul>
 		</nav>
+	</div>
+</div>
 
-		<div class='eight column centered row'>
-			<div class='column'>
-				{{outlet}}
-			</div>
-		</div>
+<div class='row'>
+	<div class='large-12 columns'>
+		{{outlet}}
 	</div>
 </div>

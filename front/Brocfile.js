@@ -21,7 +21,13 @@ minifyJS: {
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
-app.import('bower_components/semantic-ui/dist/semantic.min.css');
-app.import('bower_components/semantic-ui/dist/semantic.min.js');
+
+//css
+app.import('bower_components/foundation/css/normalize.css');
+
+
+// 在这里使用 non-amd import js, 则是依次添加在后面的
+app.import('bower_components/foundation/js/vendor/modernizr.js');
+app.import('bower_components/foundation/js/foundation.js');
 
 module.exports = app.toTree();
