@@ -8,7 +8,7 @@ export default Ember.ArrayController.extend({
 			}
 			return !todo.get('isArchive');
 		});
-	}.property('@each.isArchive', '@each.isNew'),
+	}.property('@each.isArchive'),
 
 	todo: function() {
 		return this.store.createRecord('todo', {
