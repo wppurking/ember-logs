@@ -1,6 +1,8 @@
-用于练习 Ember.js + Rails 的组合的 demo 应用
+# 目的
+用于练习 Ember.js + Rails 的组合的 demo 应用及寻坑
 
-Tech stack(import point):
+# Tech stack(import point):
+
 * ember-cli : ember.js 开发的工具集 (类似 rails 的 generate)
  - ember.js : 核心 ember.js 前端开发框架
  - ember-data : ember.js 中独立的前端与后端数据交互, 数据缓存等等的问题的库
@@ -13,7 +15,8 @@ Tech stack(import point):
  - active_model_serializers : rails 中用于处理数据 json 序列化问题的 gem
  
  
-记录:
+# 记录:
+
 ## 对 es6 transpiler 现在的使用情况?
 现在 es6 transpiler 的使用还是挺有限的, 但现在所需要的也就是[ 22 个特性](https://babeljs.io/docs/learn-es6/#classes)中的 6 个重点特性, 其他的现在都无所谓, 重点特性如下
 
@@ -28,7 +31,7 @@ Tech stack(import point):
     a: function {
       console.log('a');
     }
-    // 被替换成
+    // 被替换成. 在 Ember.js 中定义 property() 则无法也不要用这种写法
     b() {
       console.log('b');
     }
@@ -46,6 +49,14 @@ Tech stack(import point):
 现在 ember.js 中的 DS.ActiveModelAdapter 还并不是 json-api:format, 现在还是在 rails 中比较常见的生成方法. 看着 json-api:format 的确是有点难搞, 但 ember.js 为了统一与外部 json api 的交互, 他们起草的这个规范的确有必要,
 不过 active_model_serializers 0.9 系列也已经开始支持 json-api:format 了, 所以也不用担心. 在现在这个时机, 使用 active_model_serializers 0.8-stable 分支和 DS.ActiveModelAdapter 足够.
 
+## [x]SPA 应用第一次访问的初始化加载的问题?
+现在 ember.js 正在着力开发 [FastBoot]() 这个可以解决这个问题(看看 Discourse 中首次 URL 访问的 Preload js 数据), 所以现在可以不用自己担心在这个方向, 因为整个社区的大方向是这样.
+但现在需要一个过度方案, 现在的过度方案可以学的 Gmail 应用的首次访问的 js 加载进度条以及 js,css 文件访问 CDN 加速方案.
+
+## [x]ember.js 中 Component 数量大, 重绘制速度慢的问题?
+这个问题与我实现 todo item 的功能操作有关, 当自己测试将 todo item 量添加到大概 50 个左右的时候, 每一次改变其中一个 todo item 的 component 的值的时候, 整个 {{#each}} 中的所有 component 都重新计算一次, 
+现在还不清楚为什么整个 {{#each}} 中所有 component 都需要重算一次? 但如果后续还有如此的需求, 这样实现肯定是有性能问题的(需要观察正在进行中的新 Ember.js Dom Diff 渲染引擎会有多大改善)
+
 ## ember.js 处理 rails 过来的 Validation errors 问题?
 TODO 还没解决, 现在仅仅是 logger 在 console 中, 还需要看需要如何使用 Ember.Error 或者 DS.Errors 来解决(应该是后者解决)
 
@@ -54,7 +65,3 @@ TODO 现在还没想好, 需要解决...
 
 ## SPA 应用中的实时交互问题及 ember.js + socket.io 的问题? 
 TODO 有思路以及方向, 但还需要具体方案在以及 demo 去实践, 寻找坑填坑.
-
-## SPA 应用第一次访问的初始化加载的问题?
-现在 ember.js 正在着力开发 [FastBoot]() 这个可以解决这个问题(看看 Discourse 中首次 URL 访问的 Preload js 数据), 所以现在可以不用自己担心在这个方向, 因为整个社区的大方向是这样.
-但现在需要一个过度方案, 现在的过度方案可以学的 Gmail 应用的首次访问的 js 加载进度条以及 js,css 文件访问 CDN 加速方案.
