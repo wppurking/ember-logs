@@ -31,7 +31,9 @@
     a: function {
       console.log('a');
     }
-    // 被替换成. 在 Ember.js 中定义 property() 则无法也不要用这种写法
+    // 被替换成.
+    // - 在 Ember.js 中定义 property() 则无法也不要用这种写法
+    // - 在 router.js 文件中, export default Router.map() 无法享受这样写法, 原因不知
     b() {
       console.log('b');
     }
@@ -56,6 +58,12 @@
 ## [x]ember.js 中 Component 数量大, 重绘制速度慢的问题?
 这个问题与我实现 todo item 的功能操作有关, 当自己测试将 todo item 量添加到大概 50 个左右的时候, 每一次改变其中一个 todo item 的 component 的值的时候, 整个 {{#each}} 中的所有 component 都重新计算一次, 
 现在还不清楚为什么整个 {{#each}} 中所有 component 都需要重算一次? 但如果后续还有如此的需求, 这样实现肯定是有性能问题的(需要观察正在进行中的新 Ember.js Dom Diff 渲染引擎会有多大改善)
+
+## ember-cli server 中编译文件现在是全部重新编译, 项目越大文件越多会越慢?
+这个暂时在使用 ember-cli 的时候没有办法解决, 不过好在 ember-cli 已经着手解决这个问题了, 见 [issue](), 所以这个什么都不用做, 等着 ember-cli 社区完成后对 ember-cli 更新即可.
+
+## ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
+TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道如何解决.
 
 ## ember.js 处理 rails 过来的 Validation errors 问题?
 TODO 还没解决, 现在仅仅是 logger 在 console 中, 还需要看需要如何使用 Ember.Error 或者 DS.Errors 来解决(应该是后者解决)
