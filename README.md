@@ -52,7 +52,7 @@
 不过 active_model_serializers 0.9 系列也已经开始支持 json-api:format 了, 所以也不用担心. 在现在这个时机, 使用 active_model_serializers 0.8-stable 分支和 DS.ActiveModelAdapter 足够.
 
 ## [x]SPA 应用第一次访问的初始化加载的问题?
-现在 ember.js 正在着力开发 [FastBoot]() 这个可以解决这个问题(看看 Discourse 中首次 URL 访问的 Preload js 数据), 所以现在可以不用自己担心在这个方向, 因为整个社区的大方向是这样.
+现在 ember.js 正在着力开发 [FastBoot](https://github.com/tildeio/ember-cli-fastboot) [INSIDE FASTBOOT(1)](http://emberjs.com/blog/2014/12/22/inside-fastboot-the-road-to-server-side-rendering.html) [INSIDE FASTBOOT(2)](http://emberjs.com/blog/2015/01/08/inside-fastboot-faking-the-dom-in-node.html) 这个可以解决这个问题(看看 Discourse 中首次 URL 访问的 Preload js 数据), 所以现在可以不用自己担心在这个方向, 因为整个社区的大方向是这样.
 但现在需要一个过度方案, 现在的过度方案可以学的 Gmail 应用的首次访问的 js 加载进度条以及 js,css 文件访问 CDN 加速方案.
 
 ## [x]ember.js 中 Component 数量大, 重绘制速度慢的问题?
@@ -60,7 +60,7 @@
 现在还不清楚为什么整个 {{#each}} 中所有 component 都需要重算一次? 但如果后续还有如此的需求, 这样实现肯定是有性能问题的(需要观察正在进行中的新 Ember.js Dom Diff 渲染引擎会有多大改善)
 
 ## ember-cli server 中编译文件现在是全部重新编译, 项目越大文件越多会越慢?
-这个暂时在使用 ember-cli 的时候没有办法解决, 不过好在 ember-cli 已经着手解决这个问题了, 见 [issue](), 所以这个什么都不用做, 等着 ember-cli 社区完成后对 ember-cli 更新即可.
+这个暂时在使用 ember-cli 的时候没有办法解决, 不过好在 ember-cli 在来临的 v1.0.0 版本着手解决这个问题了, 见 [issue 2371](https://github.com/ember-cli/ember-cli/issues/2371), 所以这个什么都不用做, 等着 ember-cli 社区完成后对 ember-cli 更新即可.
 
 ## ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
 TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道如何解决.
