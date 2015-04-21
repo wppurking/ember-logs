@@ -17,7 +17,7 @@
  
 # 记录:
 
-## 对 es6 transpiler 现在的使用情况?
+## [x]对 es6 transpiler 现在的使用情况?
 现在 es6 transpiler 的使用还是挺有限的, 但现在所需要的也就是[ 22 个特性](https://babeljs.io/docs/learn-es6/#classes)中的 6 个重点特性, 其他的现在都无所谓, 重点特性如下
 
  * arrays: 用于闭包函数的简写方法, 使用 () => {} 来代替 function() {}
@@ -68,9 +68,6 @@
 ## [x]ember-cli server 中编译文件现在是全部重新编译, 项目越大文件越多会越慢?
 这个暂时在使用 ember-cli 的时候没有办法解决, 不过好在 ember-cli 在来临的 v1.0.0 版本着手解决这个问题了, 见 [issue 2371](https://github.com/ember-cli/ember-cli/issues/2371), 所以这个什么都不用做, 等着 ember-cli 社区完成后对 ember-cli 更新即可.
 
-## ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
-TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道如何解决.
-
 ## [x]ember.js 处理 rails 过来的 Validation errors 问题?
 ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来自 jQuery, Rails 社区的 Yehuda Katz 将好东西直接拿过了, 与 Rails 中的 Errors 处理基本上一个模子. 借用了 js 原生的 Error class 然后封装成 DS.Errors, 当 DS.Model 进行 save/update 等方法执行错误后需要满足两个条件则会自动解析内容并且填充到 DS.Model.errors 中, 其就是 DS.Errors 实例.
 第一: 要求服务器端返回[ 422 错误](https://tools.ietf.org/html/rfc4918#section-11.2), 第二: 返回的结果是 {attribute: [...message]}. 错误填充到 DS.Model.errors 然后在页面上可以 DS.Model.errors.username 获取展示错误以及通过 DS.Model.errors.messages 展示全部错误信息.
@@ -79,8 +76,12 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 现在刚刚熟悉 ember.js 的时候要编写批量保存的时候, 思路是想着在页面上为 checkbox 设置自己的 name 属性进行提交, 但实际上应该将提交的属性名字交由 ES.Model 去处理. 我没有在 Ember Data 中找到这样对批量更新的支持, 所以两种方式:
 第一种, 将批量变为借用 Ember Data 的 Model 中每一个的 save. 第二种通过 Ember Data 的 Model 收集数据, 然后 Ember.$.ajax 进行自行提交, 但需要自行处理 DS.Model.isDrity 的问题.
 
-## ember.js 中通过 Ajax 请求超时后怎么办?
-TODO 现在还没想好, 需要解决...
+## [x]ember.js 中通过 Ajax 请求超时后怎么办?
+这个学习 Gmail 的应用, 所有需要应对远程的请求, 先进行网络处理并带有非阻拦式的提示处理框, 当成功后页面 UI 做响应处理. 其次出现网络问题, 在页面给予提示处理. (Ajax 体验类型的问题, 都可以参考 Gmail 这个 SPA Web App)
+[现在代码中是尝试的先 UI 响应, 再网络处理, 失败则 rollback 的处理方法]
+
+## ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
+TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道如何解决.
 
 ## SPA 应用中的实时交互问题及 ember.js + socket.io 的问题? 
 TODO 有思路以及方向, 但还需要具体方案在以及 demo 去实践, 寻找坑填坑.
