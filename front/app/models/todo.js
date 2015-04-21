@@ -26,7 +26,7 @@ Todo.reopenClass({
   /**
    * 批量存档 Todo
    */
-    archives(todos) {
+  archives(todos) {
     var ids = todos.mapBy('id');
     todos.setEach('isArchive', true);
     Ember.$.ajax('/todos/archives', {

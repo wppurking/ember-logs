@@ -75,6 +75,10 @@ TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道
 ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来自 jQuery, Rails 社区的 Yehuda Katz 将好东西直接拿过了, 与 Rails 中的 Errors 处理基本上一个模子. 借用了 js 原生的 Error class 然后封装成 DS.Errors, 当 DS.Model 进行 save/update 等方法执行错误后需要满足两个条件则会自动解析内容并且填充到 DS.Model.errors 中, 其就是 DS.Errors 实例.
 第一: 要求服务器端返回[ 422 错误](https://tools.ietf.org/html/rfc4918#section-11.2), 第二: 返回的结果是 {attribute: [...message]}. 错误填充到 DS.Model.errors 然后在页面上可以 DS.Model.errors.username 获取展示错误以及通过 DS.Model.errors.messages 展示全部错误信息.
 
+## [x]ember.js 与 rails 之间如何进行数据批量保存/更新?
+现在刚刚熟悉 ember.js 的时候要编写批量保存的时候, 思路是想着在页面上为 checkbox 设置自己的 name 属性进行提交, 但实际上应该将提交的属性名字交由 ES.Model 去处理. 我没有在 Ember Data 中找到这样对批量更新的支持, 所以两种方式:
+第一种, 将批量变为借用 Ember Data 的 Model 中每一个的 save. 第二种通过 Ember Data 的 Model 收集数据, 然后 Ember.$.ajax 进行自行提交, 但需要自行处理 DS.Model.isDrity 的问题.
+
 ## ember.js 中通过 Ajax 请求超时后怎么办?
 TODO 现在还没想好, 需要解决...
 
