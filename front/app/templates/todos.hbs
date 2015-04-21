@@ -6,6 +6,14 @@
 			{{/each}}
 			<li class='item'>
 				Create New Todo: {{input value=todo.title on='key-press' action='newTodo'}}
+        {{#unless todo.errors.isEmpty}}
+          <div class="alert-box alert radius">
+            {{#each message in todo.errors.messages}}
+              {{message}}<br>
+            {{/each}}
+            <a href="#" {{action 'closeAlert'}} class="close">&times;</a>
+          </div>
+        {{/unless}}
 			</li>
 		</ul>
 
