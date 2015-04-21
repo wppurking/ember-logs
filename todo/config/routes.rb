@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :tasks, path: 'todos'
+  resources :tasks, path: 'todos' do
+    collection do
+      put 'archives'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

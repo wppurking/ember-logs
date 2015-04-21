@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Todo from '../models/todo';
 
 export default Ember.ArrayController.extend({
   unArchive: function() {
@@ -34,18 +35,33 @@ export default Ember.ArrayController.extend({
         this.get('todo').save().then(() => {
           self.incrementProperty('newCount', 1);
         }).catch(error => {
-          console.log(error);
+          console.log(self.get('todo.errors.messages'));
         });
       }
     },
 
     archiveTodos() {
       console.log('archiveTodos..!!!..');
+      // 这里更新了, 但如果不进行 save 的话, 这些 Model 仍然会被加载出来进行批量更新
       var archivedTodos = this.filter(todo => {
         return todo.get('isDone');
       });
-      archivedTodos.setEach('isArchive', true);
-      archivedTodos.setEach('isDone', true);
+      /* 每一个 mode 都进行一次独立的保存(批量 Archive) 的方式, 这样 model 信息会一致.
+      archivedTodos.forEach((todo) => {
+        todo.set('isArchive', true);
+        todo.save().catch((error) => {
+          todo.rollback();
+          console.log(error);
+        });
+      });
+      */
+
+      // Model 通过 Ember.$.ajax 的处理方式, 一次性批量处理.
+      Todo.archives(archivedTodos);
+    },
+
+    closeAlert() {
+      this.get('todo.errors').clear();
     }
   }
 });

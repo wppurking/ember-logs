@@ -39,6 +39,12 @@ class TasksController < ApplicationController
       end
     end
 
+    # 批量进行 Archive
+    def archives
+      Task.where(id: params[:ids]).update_all(is_done: true, is_archive: true)
+      render json: {success: 'ok'}
+    end
+
 
     def update_task_params
       params.permit(:title, :is_done, :is_archive)
