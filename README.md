@@ -71,8 +71,9 @@
 ## ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
 TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道如何解决.
 
-## ember.js 处理 rails 过来的 Validation errors 问题?
-TODO 还没解决, 现在仅仅是 logger 在 console 中, 还需要看需要如何使用 Ember.Error 或者 DS.Errors 来解决(应该是后者解决)
+## [x]ember.js 处理 rails 过来的 Validation errors 问题?
+ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来自 jQuery, Rails 社区的 Yehuda Katz 将好东西直接拿过了, 与 Rails 中的 Errors 处理基本上一个模子. 借用了 js 原生的 Error class 然后封装成 DS.Errors, 当 DS.Model 进行 save/update 等方法执行错误后需要满足两个条件则会自动解析内容并且填充到 DS.Model.errors 中, 其就是 DS.Errors 实例.
+第一: 要求服务器端返回[ 422 错误](https://tools.ietf.org/html/rfc4918#section-11.2), 第二: 返回的结果是 {attribute: [...message]}. 错误填充到 DS.Model.errors 然后在页面上可以 DS.Model.errors.username 获取展示错误以及通过 DS.Model.errors.messages 展示全部错误信息.
 
 ## ember.js 中通过 Ajax 请求超时后怎么办?
 TODO 现在还没想好, 需要解决...
