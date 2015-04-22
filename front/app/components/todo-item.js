@@ -38,7 +38,7 @@ export default Ember.Component.extend({
           if(todo.get('isDrity')) {
             todo.save().catch((error) => {
               console.log(error);
-            })
+            });
           }
           self.$('input.focus').focus();
         }, 200);

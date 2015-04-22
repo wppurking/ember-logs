@@ -34,7 +34,7 @@ export default Ember.ArrayController.extend({
         //});
         this.get('todo').save().then(() => {
           self.incrementProperty('newCount', 1);
-        }).catch(error => {
+        }).catch(() => {
           console.log(self.get('todo.errors.messages'));
         });
       }
