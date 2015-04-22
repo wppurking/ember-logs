@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 var Todo = DS.Model.extend({
   // 是否完成
@@ -40,7 +41,7 @@ Todo.reopenClass({
         todo.rollback();
       });
       console.log(error);
-    })
+    });
   }
 });
 

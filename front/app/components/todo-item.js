@@ -27,7 +27,7 @@ export default Ember.Component.extend({
     // 这里我没有弄明白是如何变化的? 并且是所有 todo item 的 component 都会被重新绘制一遍.
     // -- 在 archived 页面没有, 只有在 todos 页面一直有这问题.
     // - 解决问题, 为 controller:todos 中关于 unArchive 这个 property 的监控计算问题导致, 取消了 @each.isNew
-    toggleEdit() {
+    toggleEdit(todo) {
       console.log('toggleEdit');
       this.toggleProperty('isEdit');
       if(this.get('isEdit')) {
@@ -35,15 +35,22 @@ export default Ember.Component.extend({
         // Em 是 Ember 库中的简写
         //Em.run.later(function() {
         Ember.run.later(() => {
+          if(todo.get('isDrity')) {
+            todo.save().catch((error) => {
+              console.log(error);
+            })
+          }
           self.$('input.focus').focus();
         }, 200);
       }
     },
     removeTodo(todo) {
       //todo.deleteRecord();
-      todo.destroyRecord().catch(error => {
-        console.log("Fail destory one record" + error);
-      });
+      if(confirm('确认删除?')) {
+        todo.destroyRecord().catch(error => {
+          console.log("Fail destory one record" + error);
+        });
+      }
     },
     undo(todo) {
       todo.set('isDone', false).set('isArchive', false).save().catch((error) => {

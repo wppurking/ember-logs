@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 
 
     def update_task_params
-      params.permit(:title, :is_done, :is_archive)
+      params.require(:todo).permit(:title, :is_done, :is_archive)
     end
 
     def save_task_params
