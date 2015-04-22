@@ -7,6 +7,7 @@ class TasksController < ApplicationController
 
     def create
         task = Task.new(save_task_params)
+        # sleep(0.4) # 300ms, 调教延迟, 测试用户操作感觉.
         if task.save
             render json: task, root: 'todos'
         else
