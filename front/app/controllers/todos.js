@@ -41,7 +41,7 @@ export default Ember.ArrayController.extend({
     },
 
     archiveTodos() {
-      console.log('archiveTodos..!!!..');
+      this.logger.log('archiveTodos..!!!..');
       // 这里更新了, 但如果不进行 save 的话, 这些 Model 仍然会被加载出来进行批量更新
       var archivedTodos = this.filter(todo => {
         return todo.get('isDone');
