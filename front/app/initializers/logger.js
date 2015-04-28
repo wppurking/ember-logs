@@ -2,6 +2,7 @@ export function initialize(container, application) {
    //application.inject('route', 'foo', 'service:foo');
   application.inject('route', 'logger', 'service:logger');
   application.inject('controller', 'logger', 'service:logger');
+  application.inject('component:todo-item', 'logger', 'service:logger');
 }
 
 export default {

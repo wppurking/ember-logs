@@ -28,7 +28,7 @@ export default Ember.Component.extend({
     // -- 在 archived 页面没有, 只有在 todos 页面一直有这问题.
     // - 解决问题, 为 controller:todos 中关于 unArchive 这个 property 的监控计算问题导致, 取消了 @each.isNew
     toggleEdit(todo) {
-      console.log('toggleEdit');
+      this.logger.log(`toggleEdit : ${this.logger}`);
       this.toggleProperty('isEdit');
       if(this.get('isEdit')) {
         var self = this;
