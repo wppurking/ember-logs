@@ -80,15 +80,24 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 这个学习 Gmail 的应用, 所有需要应对远程的请求, 先进行网络处理并带有非阻拦式的提示处理框, 当成功后页面 UI 做响应处理. 其次出现网络问题, 在页面给予提示处理. (Ajax 体验类型的问题, 都可以参考 Gmail 这个 SPA Web App)
 [现在代码中是尝试的先 UI 响应, 再网络处理, 失败则 rollback 的处理方法]
 
-## 将 ember.js 与 rails 部署在不同的地区, 使他们响应时间延长所出现的问题?
+## [x]将 ember.js 与 rails 部署在不同的地区, 使他们响应时间延长所出现的问题?
 当 ember.js ajax 到 api 的时间在 400ms 以上的时候用户有明显的感觉, 最优的应该是控制在 200~300ms 之间, 就算有延时用户也感觉很迅速. 这个问题分两块思考, 第一是 api 后面的本身的计算问题: 这个问题除非后端出现 db 或者自己代码编写的问题会产生延迟, 如果在没有 view render 的情况下还有 300ms 的时间那么这个 api 则是有问题的.
 第二是 ember.js 与 api 之间的物理网络问题, 这个是一定要想办法控制住的, api 的服务器一定需要尽可能的离客户比较近. 例如中国, 要控制服务器在全国 ping 值常规在 200ms 以内即可(例如到香港,或者国内阿里云), 链接到美国则需要控制机房地址.  
 
 当响应时间变长的时候引发另外的一个问题, 对 action 触发的事件, 是需要做重复提交处理的, 现在检查 Gmail 的邮件搜索等等功能都没有做处理因为其并非创建处理, 这个不处理可以理解, 但最重要的是要避免重复创建提交(例如快速回车重复创建 task 是可能的), 这个则需要对所操作的 action 进行 rails 中的 disabled-with 处理. 
 当响应时间变长的时候引发第三个问题, 对于网络链接时间要拥有一个时间控制, 当连接的时间超过某个时间需要对用户进行提示, 并且超过某个阀值后需要对网络做 cancel 或者重试, 类似 Gmail 中每个请求有 timeout, 同样每个请求有自动 retry 以及多次 retry 的间隔时间变长. 这个应该在 ember.js 所依赖的 jQuery 的 ajax 操作中处理.
 
-## ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
-TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道如何解决.
+## ember-cli 前端如何处理权限以及验证的问题?
+TODO 可以考虑利用 Ember.js 中的 Service DI 来进行具体实现. 还需要考虑是否有类似 Rails before_action 这样的过滤器存在?
 
 ## SPA 应用中的实时交互问题及 ember.js + socket.io 的问题? 
 TODO 有思路以及方向, 但还需要具体方案在以及 demo 去实践, 寻找坑填坑.
+
+## ember.js 应用如何使用 socket.io 与 rails 结合起来组成实时信息推送的问题?
+TODO rails -> redis pub,  redis sub -> socket.io -> ember.js?
+
+## ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
+TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道如何解决.
+
+## 产品环境如何部署 ember-cli, socket.io, rails ?
+TODO 难道使用 docker 将三个东西打包到一起进行更新?
