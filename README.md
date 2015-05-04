@@ -64,6 +64,7 @@
 ## [x]ember.js 中 Component 数量大, 重绘制速度慢的问题?
 这个问题与我实现 todo item 的功能操作有关, 当自己测试将 todo item 量添加到大概 50 个左右的时候, 每一次改变其中一个 todo item 的 component 的值的时候, 整个 {{#each}} 中的所有 component 都重新计算一次, 
 现在还不清楚为什么整个 {{#each}} 中所有 component 都需要重算一次? 但如果后续还有如此的需求, 这样实现肯定是有性能问题的(需要观察正在进行中的新 Ember.js Dom Diff 渲染引擎会有多大改善)
+[Glimmer Engine](https://github.com/emberjs/ember.js/pull/10501)果然是非常快[isemberfastyet](https://www.isemberfastyet.com/) [dbmonster](https://dbmonster.firebaseapp.com/)
 
 ## [x]ember-cli server 中编译文件现在是全部重新编译, 项目越大文件越多会越慢?
 这个暂时在使用 ember-cli 的时候没有办法解决, 不过好在 ember-cli 在来临的 v1.0.0 版本着手解决这个问题了, 见 [issue 2371](https://github.com/ember-cli/ember-cli/issues/2371), 所以这个什么都不用做, 等着 ember-cli 社区完成后对 ember-cli 更新即可.
