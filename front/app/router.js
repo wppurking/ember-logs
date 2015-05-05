@@ -10,4 +10,7 @@ export default Router.map(function() {
 //export default Router.map(() => {
   this.route('todos');
   this.route('archived');
+  this.route('session', function() {
+    this.route('new')
+  });
 });

@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
       true
     else
       errors = {error: "You must be logged in to access this section"}
-      render json: {errors: errors}
+      render json: {errors: errors}, status: 422
       false
     end
   end

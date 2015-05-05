@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="large-12 column">
+    登陆
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-12 column">
+{{#if errors}}
+  <div>Error: {{errors}}</div>
+{{/if}}
+
+    {{input type='text' value=email placeholder='You Email' }}
+    {{input type='password' value=password placeholder='Input your password' }}
+    <button class="button tiny info" {{action 'login'}}>Login</button>
+  </div>
+</div>

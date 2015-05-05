@@ -9,7 +9,7 @@ class SessionController < ApplicationController
     errors[:password] = ['Password can not be blank!'] if params[:password].blank?
 
     if errors.size > 0
-      render json: {errors: errors}
+      render json: {errors: errors}, status: 422
     else
       # 验证用户参数
       # 做出判断
@@ -18,7 +18,7 @@ class SessionController < ApplicationController
         render json: {users: {email: 'wyatt'}}
       else
         errors[:email] = ['User or password is invalid.']
-        render json: {errors: errors}
+        render json: {errors: errors}, status: 422
       end
     end
   end
