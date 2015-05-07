@@ -9,6 +9,14 @@
 {{#if errors}}
   <div>Error: {{errors}}</div>
 {{/if}}
+    <!-- {{action}} 的使用 -->
+    <!-- * 传递到当前 template 对应 controller 的 actions 中 -->
+    <!-- * 如果 controller 中没有 action, 则会被 bubbling 到 router 中 -->
+    <!-- * {{action 'actionName' params}} params 可以传递多个参数 -->
+    <!-- * {{action 'actionName' on='submit'}} 使用 on 参数指定触发的事件, 默认为 click 事件 -->
+    <!-- * {{action 'actionName' allowedKeys='alt'}} 使用 allowedKeys 来指定需要一个按键+click 完成触发 -->
+    <!-- * 使用 bubbles=false 参数, 可以避免 action 的默认事件传递行为 -->
+    <!-- * 使用 target 来指定 action 触发哪个 view`s target 中的 actions -->
     <form {{action 'login' on='submit'}}>
       {{input type='text' value=email placeholder='You Email' }}
       {{input type='password' value=password placeholder='Input your password' }}
