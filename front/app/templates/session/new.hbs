@@ -9,9 +9,10 @@
 {{#if errors}}
   <div>Error: {{errors}}</div>
 {{/if}}
-
-    {{input type='text' value=email placeholder='You Email' }}
-    {{input type='password' value=password placeholder='Input your password' }}
-    <button class="button tiny info" {{action 'login'}}>Login</button>
+    <form {{action 'login' on='submit'}}>
+      {{input type='text' value=email placeholder='You Email' }}
+      {{input type='password' value=password placeholder='Input your password' }}
+      <button class="button tiny info" {{action 'login'}}>Login</button>
+    </form>
   </div>
 </div>
