@@ -22,6 +22,7 @@ app.import('bower_components/foundation/css/normalize.css');
 
 
 // 在这里使用 non-amd import js, 则是依次添加在后面的
+app.import('bower_components/Cookies/dist/cookies.min.js');
 app.import('bower_components/foundation/js/vendor/modernizr.js');
 app.import('bower_components/foundation/js/foundation.js');
 
