@@ -77,6 +77,9 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 现在刚刚熟悉 ember.js 的时候要编写批量保存的时候, 思路是想着在页面上为 checkbox 设置自己的 name 属性进行提交, 但实际上应该将提交的属性名字交由 ES.Model 去处理. 我没有在 Ember Data 中找到这样对批量更新的支持, 所以两种方式:
 第一种, 将批量变为借用 Ember Data 的 Model 中每一个的 save. 第二种通过 Ember Data 的 Model 收集数据, 然后 Ember.$.ajax 进行自行提交, 但需要自行处理 DS.Model.isDrity 的问题.
 
+## 使用 ember-data 如何处理分页的问题?
+这个问题从 ruby-china 上的一个问题引发过来的, 开始自己还没想到这.
+
 ## [x]ember.js 中通过 Ajax 请求超时后怎么办?
 这个学习 Gmail 的应用, 所有需要应对远程的请求, 先进行网络处理并带有非阻拦式的提示处理框, 当成功后页面 UI 做响应处理. 其次出现网络问题, 在页面给予提示处理. (Ajax 体验类型的问题, 都可以参考 Gmail 这个 SPA Web App)
 [现在代码中是尝试的先 UI 响应, 再网络处理, 失败则 rollback 的处理方法]
@@ -88,9 +91,27 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 当响应时间变长的时候引发另外的一个问题, 对 action 触发的事件, 是需要做重复提交处理的, 现在检查 Gmail 的邮件搜索等等功能都没有做处理因为其并非创建处理, 这个不处理可以理解, 但最重要的是要避免重复创建提交(例如快速回车重复创建 task 是可能的), 这个则需要对所操作的 action 进行 rails 中的 disabled-with 处理. 
 当响应时间变长的时候引发第三个问题, 对于网络链接时间要拥有一个时间控制, 当连接的时间超过某个时间需要对用户进行提示, 并且超过某个阀值后需要对网络做 cancel 或者重试, 类似 Gmail 中每个请求有 timeout, 同样每个请求有自动 retry 以及多次 retry 的间隔时间变长. 这个应该在 ember.js 所依赖的 jQuery 的 ajax 操作中处理.
 
+
 ## [x]在 ember.js 中如何使用第三方的需要全局变量的库文件?
 因为 ember-cli 的 resolver 机制, 所有的库文件默认是不会污染 global 空间的, 这个对原来 Ember 定义 Controller, Router, Model 等等都是放在顶层空间非常不一样, 这种方法也成为 Ember 2.0 的处理方法.
 但还是会有一下现在的 JavaScript 库文件没有使用这样的模块化, 需要使用到 global 空间, 那么 ember-cli 也提供了这种方法, 将需要放在 global 空间中的类名添加到 .jshintrc 中并且设置为 true `{"predef": [..., "Ember", "$", "Cookies"]}` 详细解释在 [stackoverflow](http://stackoverflow.com/questions/24312362/ember-cli-fix-for-ember-is-not-defined)
+
+## [x]在 ember.js 中使用的 Promise
+在 ember 中, 非常多的地方使用到 Promise, 那么理解 Promise 非常重要. 参看两个链接, 一个[中文](http://www.html-js.com/article/Learn-JavaScript-every-day-to-understand-what-JavaScript-Promises)一个[英文](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+
+### 四个状态:
+* pending: initial state, not fulfilled or rejected
+* fulfilled: successful operation
+* rejected: failed operation
+* settled: the Promise is either fulfilled or rejected, but not pending.
+
+### 两个参数
+* resolve: fulfilled 状态需要调用的方法
+* reject: rejected 需要调用的方法
+
+### 两个方法
+* then: Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler
+* catch: Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled
 
 ## ember-cli 前端如何处理权限以及验证的问题?
 TODO 可以考虑利用 Ember.js 中的 Service DI 来进行具体实现. 还需要考虑是否有类似 Rails before_action 这样的过滤器存在?
