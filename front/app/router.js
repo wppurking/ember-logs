@@ -11,6 +11,7 @@ export default Router.map(function() {
   this.route('todos');
   this.route('archived');
   this.route('session', function() {
-    this.route('new')
+    this.route('new');
+    this.route('logout');
   });
 });

@@ -78,7 +78,8 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 第一种, 将批量变为借用 Ember Data 的 Model 中每一个的 save. 第二种通过 Ember Data 的 Model 收集数据, 然后 Ember.$.ajax 进行自行提交, 但需要自行处理 DS.Model.isDrity 的问题.
 
 ## 使用 ember-data 如何处理分页的问题?
-这个问题从 ruby-china 上的一个问题引发过来的, 开始自己还没想到这.
+这个问题从 ruby-china 上的一个问题引发过来的, 开始自己还没想到这. 
+找到的一个分页例子代码: [Pagination with Ember](http://hawkins.io/2013/07/pagination-with-ember/)
 
 ## [x]ember.js 中通过 Ajax 请求超时后怎么办?
 这个学习 Gmail 的应用, 所有需要应对远程的请求, 先进行网络处理并带有非阻拦式的提示处理框, 当成功后页面 UI 做响应处理. 其次出现网络问题, 在页面给予提示处理. (Ajax 体验类型的问题, 都可以参考 Gmail 这个 SPA Web App)
@@ -98,6 +99,7 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 
 ## [x]在 ember.js 中使用的 Promise
 在 ember 中, 非常多的地方使用到 Promise, 那么理解 Promise 非常重要. 参看两个链接, 一个[中文](http://www.html-js.com/article/Learn-JavaScript-every-day-to-understand-what-JavaScript-Promises)一个[英文](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+[例子代码](http://jsbin.com/IkaS/1/edit?html,js,output)
 
 ### 四个状态:
 * pending: initial state, not fulfilled or rejected

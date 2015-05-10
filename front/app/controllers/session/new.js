@@ -5,21 +5,20 @@ export default Ember.Controller.extend({
   password: '',
   errors: null,
 
+  isAuthenticate: function() {
+    console.log(this.session);
+    return this.session.isAuthenticate();
+  }.property('session.token'),
+
   actions: {
     login() {
       this.set('errors', null);
-      Ember.$.ajax('/session', {
-        type: 'POST',
-        data: {
-          email: this.get('email'),
-          password: this.get('password')
-        },
-        dataType: 'json'
-      }).done((r) => {
-        console.log(r);
-      }).fail((xhr) => {
-        this.set('errors', xhr.responseText);
-      });
+      this.session.signin(this.get('email'), this.get('password'))
+        .done((r) => {
+          console.log("Token: " + this.session.get('token') + ";" + JSON.stringify(r));
+        }).fail((xhr) => {
+          this.set('errors', xhr.responseText);
+        });
     }
   }
 });

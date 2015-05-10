@@ -5,7 +5,14 @@
 			<ul>
 				<li>{{#link-to 'todos'}}工作清单 Todos |{{/link-to}}</li>
 				<li>{{#link-to 'archived'}}存档清单 Todos | {{/link-to}}</li>
-        <li>{{#link-to 'session.new'}}登陆{{/link-to}}</li>
+        {{#if isAuthenticate}}
+          <li>{{#link-to 'session.logout'}}登出{{/link-to}}</li>
+        {{else}}
+          <li>{{#link-to 'session.new'}}登陆{{/link-to}}</li>
+        {{/if}}
+        <li><button class="tiny" {{action 'sayhi' 'wyatt say'}}>Button Say Hi</button></li>
+        <li><button class="tiny" {{action 'changeToken'}}>ChangeToken</button></li>
+
 			</ul>
 		</nav>
 	</div>
