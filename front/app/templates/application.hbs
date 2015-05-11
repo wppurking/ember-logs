@@ -19,6 +19,9 @@
 
 <div class='row'>
 	<div class='large-12 columns'>
+    {{#if error}}
+      <h3 style="color:red;">{{error}}</h3>
+    {{/if}}
 		{{outlet}}
 	</div>
 </div>

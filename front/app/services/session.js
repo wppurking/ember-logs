@@ -3,6 +3,8 @@ import Ember from 'ember';
 export default Ember.Service.extend({
   email: null,
   token: null,
+  // 当前 session service 的 error
+  error: null,
   // 登陆
   signin(email, password) {
     return Ember.$.ajax('/session', {
