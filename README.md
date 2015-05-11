@@ -116,7 +116,10 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 * catch: Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled
 
 ## ember-cli 前端如何处理权限以及验证的问题?
-TODO 可以考虑利用 Ember.js 中的 Service DI 来进行具体实现. 还需要考虑是否有类似 Rails before_action 这样的过滤器存在?
+如果需要很多部分进行合作处理, 并且在参考了多个建立在 Ember 1.x 版本中的例子[ember-simple-auth](https://github.com/simplabs/ember-simple-auth) 以及 [torii](https://github.com/vestorly/torii). 下面是主要的思路:
+1. 需要使用 Service 在多个不同的上下文 Context 中共享一些用户登陆的信息, 并且需要自己处理用户体验方面的功能.
+2. 在 template 中需要使用到重复字段的时候, 需要使用到 Ember.Mixin. Ember 中专门用于共享页面上下文字段功能
+3. 根据所需要的功能, 将 Ember.Mixin 引入到 Router(在 beforeModel 中拦截请求) , Controller(在各种 Controller 里面共享变量) 上, 为需要进行验证的 Route 与 Controller 添加特性.
 
 ## SPA 应用中的实时交互问题及 ember.js + socket.io 的问题? 
 TODO 有思路以及方向, 但还需要具体方案在以及 demo 去实践, 寻找坑填坑.

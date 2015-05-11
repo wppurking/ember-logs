@@ -1,14 +1,10 @@
 import Ember from 'ember';
+import Auth from '../../mixins/auth'
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(Auth, {
   email: "",
   password: '',
   errors: null,
-
-  isAuthenticate: function() {
-    console.log(this.session);
-    return this.session.isAuthenticate();
-  }.property('session.token'),
 
   actions: {
     login() {

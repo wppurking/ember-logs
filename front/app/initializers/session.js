@@ -2,6 +2,7 @@ export function initialize(container, application) {
   // application.inject('route', 'foo', 'service:foo');
   application.inject('route', 'session', 'service:session');
   application.inject('controller', 'session', 'service:session');
+  application.inject('mixins:auth', 'session', 'service:session');
 }
 
 export default {

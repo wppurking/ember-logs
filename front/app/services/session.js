@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Service.extend({
+  email: null,
   token: null,
   // 登陆
   signin(email, password) {
@@ -14,6 +15,7 @@ export default Ember.Service.extend({
     }).done((r) => {
       // 在这里将原始 Cookie 存储
       this.set('token', Cookies.get('token'));
+      this.set('email', email);
       localStorage.setItem('token', Cookies.get('token'));
       console.log(r);
     }).fail(() => {
