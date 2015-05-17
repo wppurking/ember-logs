@@ -1,4 +1,5 @@
 <div class='row'>
+  {{isEdit}}
 {{#if isEdit}}
 <!-- action='xxx' on='key-up' or key-up='actionname' -->
 		<div class='large-5 column'>
@@ -16,7 +17,7 @@
 			<button {{action 'toggleEdit' todo bubbles=false}} class='button tiny info'>Ok</button>
 			<button {{action 'removeTodo' todo bubbles=false}} class='button tiny info'>Del</button>
 			<!-- 这里没有双向绑定, 这个点能够感知 t.title 的变化, 但无法推送自己 value 的变化给 t.title -->
-			<input value={{todo.title}} >
+			<input value={{todo.title}} />
 		</div>
 {{else}}
 	<div class='large-12 column'>

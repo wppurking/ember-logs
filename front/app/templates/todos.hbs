@@ -2,10 +2,10 @@
 	<div class='large-12'>
 		<ul>
 			{{#each t in unArchive}}
-				{{todo-item tagName='li' classNames='item' todo=t isEdit=false}}
+        <todo-item todo={{t}} isEdit=true></todo-item>
 			{{/each}}
 			<li class='item'>
-				Create New Todo: {{input value=todo.title on='key-press' action='newTodo'}}
+				Create New Todo: {{input value=todo.title key-press='newTodo'}}
         {{#unless todo.errors.isEmpty}}
           <div class="alert-box alert radius">
             {{#each message in todo.errors.messages}}
