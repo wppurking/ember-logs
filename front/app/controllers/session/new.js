@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Auth from '../../mixins/auth'
+import Auth from '../../mixins/auth';
 
 export default Ember.Controller.extend(Auth, {
   email: "",
