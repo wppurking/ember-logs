@@ -10,11 +10,16 @@ export default Ember.Controller.extend(Auth, {
     login() {
       this.set('errors', null);
       this.session.signin(this.get('email'), this.get('password'))
-        .done((r) => {
-          console.log("Token: " + this.session.get('token') + ";" + JSON.stringify(r));
+        .done(() => {
+          this.set('errors', null);
+          this.transitionTo('todos');
         }).fail((xhr) => {
           this.set('errors', xhr.responseText);
         });
+    },
+
+    logout() {
+      console.log('11111111111111');
     }
   }
 });

@@ -126,6 +126,13 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 2. 利用 mixin 将 service 中需要共享给 Router 与 Controller 的字段全部共享出去.
 3. 思考, 在 Ember 2.0(1.13) 中没有 Controller 了该如何处理?
 
+## [70%]Ember 1.13 [Glimmer] 对 Component 中的 attrs 不同处理.
+在新 Glimmer 引擎下, 传入 Component 的参数都被存储在默认不可变的 `attrs` 中, 如果 attrs 与 Component 中有同名的属性会优先使用 *不可变* 的 attrs 中的.
+对于 [Glimmer] 的新功能详细介绍, 还需要等 Ember 官方更新一些文档后才能详细知晓.
+
+现在还是建议使用 `{{my-component}}` 的形式, `angle bracket components` 还是等 Ember 1.13 更新了文档了解清楚后再使用. 因为使用后者还是有一些小问题, 例如 Component 中的 tagName 属性失效了. 
+还有例如: 现在传入 Component 的 `model` todo, 会自动标记为 `mutable` 拥有 `update` 函数, 同时在 Component 中作为参数的 `todo` 和 `attrs.todo` 都可使用, 但不知道具体会有什么区别, 这个也需要等待文档更新(何时判断为传入 function 的参数? 何时判断为 attrs?).
+
 ## SPA 应用中的实时交互问题及 ember.js + socket.io 的问题? 
 TODO 有思路以及方向, 但还需要具体方案在以及 demo 去实践, 寻找坑填坑.
 
