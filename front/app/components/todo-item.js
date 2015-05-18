@@ -7,6 +7,7 @@ import Ember from 'ember';
 // 1. 为什么每一个独立的 Component 自己的 Edit 变化会让整个 {{#each}} 中的 Component 重新绘制? 不应该只绘制自己吗?
 // 2. Compoennt 绘制速度真的很慢吗? 是因为量多导致的吗? 在 50 个量级会有明显感觉.
 export default Ember.Component.extend({
+  tagName: 'li',
   isEdit: false,
   classNames: ['item'],
   classNameBindings: ['todo.isDone'],
@@ -35,7 +36,6 @@ export default Ember.Component.extend({
         // Em 是 Ember 库中的简写
         //Em.run.later(function() {
         Ember.run.later(() => {
-          console.log('after 200ms; isEdit:' + self.get('isEdit'));
           if(todo.get('isDrity')) {
             todo.save().catch((error) => {
               console.log(error);
