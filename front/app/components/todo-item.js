@@ -7,7 +7,7 @@ import Ember from 'ember';
 // 1. 为什么每一个独立的 Component 自己的 Edit 变化会让整个 {{#each}} 中的 Component 重新绘制? 不应该只绘制自己吗?
 // 2. Compoennt 绘制速度真的很慢吗? 是因为量多导致的吗? 在 50 个量级会有明显感觉.
 export default Ember.Component.extend({
-  tagName: 'li',
+  isEdit: false,
   classNames: ['item'],
   classNameBindings: ['todo.isDone'],
   actions: {
@@ -29,10 +29,7 @@ export default Ember.Component.extend({
     // -- 在 archived 页面没有, 只有在 todos 页面一直有这问题.
     // - 解决问题, 为 controller:todos 中关于 unArchive 这个 property 的监控计算问题导致, 取消了 @each.isNew
     toggleEdit(todo) {
-      //this.setAttr('isEdit', !this.getAttr('isEdit'));
-      this.logger.log(`toggleEdit : ${this.logger}; isEdit: ${this.getAttr('isEdit')}`);
-      console.log(this.attrs);
-
+      this.toggleProperty('isEdit');
       if(this.get('isEdit')) {
         var self = this;
         // Em 是 Ember 库中的简写

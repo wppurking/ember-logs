@@ -46,7 +46,9 @@ export default Ember.Service.extend({
 
   // 验证是否登陆
   isAuthenticate() {
-    if(localStorage.getItem('token') == null) return false;
+    if(localStorage.getItem('token') == null) {
+      return false;
+    }
     return localStorage.getItem('token') === this.loadFromClient();
   }
 
