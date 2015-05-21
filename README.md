@@ -148,7 +148,7 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 #### 注意几个点
 1. 与前端登陆/登陆/用户/错误信息等的完整一套在 service 中全部处理.
 2. 利用 mixin 将 service 中需要共享给 Router 与 Controller 的字段全部共享出去.
-3. 思考, 在 Ember 2.0(1.13) 中没有 Controller 了该如何处理?
+3. 思考, 在 Ember 2.0(1.13) 中没有 Controller 了使用 [Routable Components](https://github.com/emberjs/rfcs/pull/38) 该如何处理?
 
 ## [70%]Ember 1.13 [Glimmer] 对 Component 中的 attrs 不同处理.
 在新 Glimmer 引擎下, 传入 Component 的参数都被存储在默认不可变的 `attrs` 中, 如果 attrs 与 Component 中有同名的属性会优先使用 *不可变* 的 attrs 中的.
