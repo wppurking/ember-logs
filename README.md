@@ -45,6 +45,8 @@
 这个问题其实就是在浏览器中运行的 JavaScript 的跨域安全问题, 如果一定需要部署一个 API 服务器给 Ember.js 进行跨域独立进行, 则需要服务器返回一系列的 Header 头信息和应对处理 Options 代替 HTTP Verb 中的 GET/PUT 请求.
 所以自己为了简便, 以及实际情况 Ember.js 与 rails api 并不会在两个域名下, 所以开发环境使用 ember-cli 提供的 `ember server --proxy http://localhost:3000` 解决了(ember-cli 已经想到这个事情了)
 
+[rails 5 内置 ralis api](https://github.com/rails/rails/pull/19832) 这个是可以持续关注的.
+
 ## [x]ember.js 与 rails api 交换数据的问题?
 在 rails 中用于与 ember.js 交换数据的 gem 最佳使用 active_model_serializers, 因为 DS.ActiveModelAdapter 原生支持(内部关系就是好), 其用于将 ruby 领域里面喜欢使用的 underscored 代码编写方式替换成 JavaScript 中的 camelCasing 形式
 
