@@ -76,6 +76,24 @@ Ember 1.13.beta 引入的 [Glimmer Engine](https://github.com/emberjs/ember.js/p
 ## [x]ember-cli server 中编译文件现在是全部重新编译, 项目越大文件越多会越慢?
 这个暂时在使用 ember-cli 的时候没有办法解决, 不过好在 ember-cli 在来临的 v1.0.0 版本着手解决这个问题了, 见 [issue 2371](https://github.com/ember-cli/ember-cli/issues/2371), 所以这个什么都不用做, 等着 ember-cli 社区完成后对 ember-cli 更新即可.
 
+## [x]如何通过 ember-cli 添加与 bootstrap 或者 sass 的集成?
+[Ember.js Example App w/ Twitter Bootstrap (SASS) and ember-cli](http://erikaybar.name/ember-js-bootstrap-sass-and-ember-cli-quick-start/)
+1. 通过 bower 为 ember-cli 添加 bootstrap 指定版本的前端依赖.
+2. 通过 npm 为 ember-cli 添加 node.js 需要用到的 broccoli-sass 依赖(使用 broccoli 进行编译)
+3. 引入 bootstrap 
+    
+    ```javascript
+    // Brocfile.js
+    app.import('bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js');  
+    
+    ```
+4. 将 app.css 变为 scss
+    
+    ```bash
+    mv app/styles/<app>.css app/styles/<app>.scss
+    ```
+5. 在 <app>.scss 中 @import 需要的 scss 文件.
+
 ## [x]ember.js 处理 rails 过来的 Validation errors 问题?
 ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来自 jQuery, Rails 社区的 Yehuda Katz 将好东西直接拿过了, 与 Rails 中的 Errors 处理基本上一个模子. 借用了 JavaScript 原生的 Error class 然后封装成 DS.Errors, 当 DS.Model 进行 save/update 等方法执行错误后需要满足两个条件则会自动解析内容并且填充到 DS.Model.errors 中, 其就是 DS.Errors 实例.
 
