@@ -77,7 +77,9 @@ Ember 1.13.beta 引入的 [Glimmer Engine](https://github.com/emberjs/ember.js/p
 这个暂时在使用 ember-cli 的时候没有办法解决, 不过好在 ember-cli 在来临的 v1.0.0 版本着手解决这个问题了, 见 [issue 2371](https://github.com/ember-cli/ember-cli/issues/2371), 所以这个什么都不用做, 等着 ember-cli 社区完成后对 ember-cli 更新即可.
 
 ## [x]如何通过 ember-cli 添加与 bootstrap 或者 sass 的集成?
-[Ember.js Example App w/ Twitter Bootstrap (SASS) and ember-cli](http://erikaybar.name/ember-js-bootstrap-sass-and-ember-cli-quick-start/)
+* [Ember.js Example App w/ Twitter Bootstrap (SASS) and ember-cli](http://erikaybar.name/ember-js-bootstrap-sass-and-ember-cli-quick-start/)
+* [Ember-cli, broccoli, bootstrap & sass](http://www.octolabs.com/blogs/octoblog/2014/05/08/ember-cli-broccoli-bootstrap-sass/)
+
 1. 通过 bower 为 ember-cli 添加 bootstrap 指定版本的前端依赖.
 2. 通过 npm 为 ember-cli 添加 node.js 需要用到的 broccoli-sass 依赖(使用 broccoli 进行编译)
 3. 引入 bootstrap 
