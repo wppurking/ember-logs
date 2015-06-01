@@ -205,6 +205,19 @@ ember-cli 中的 [Content Security Policy](http://content-security-policy.com), 
 
 ## [x]开发中碰到 scroll 的状态在页面 transition 后记录, 但是我们希望他不被记录, 每次页面转换都是在最上面.
 这个问题 emberjs 有官方解答 [RESETTING SCROLL ON ROUTE CHANGES](http://guides.emberjs.com/v1.10.0/cookbook/user_interface_and_interaction/resetting_scroll_on_route_changes/), 使用 mixin 进行解决.
+作为我自己的使用来说, 因为 Ember.Route 中的 `activate` hook 只有在进入这个 Route 的时候才被调用而如果在同一个页面使用 `?page=2` 这样的参数 Link 访问是不会跳出(deactivate)再跳入的, 所以我更喜欢使用 `didTransition` 这个 action 来处理这个事情. 例如下面的 Mixin 代码 `scroll-rest.js`:
+
+```javascript
+export default Ember.Mixin.create({
+  actions: {
+    didTransition() {
+      window.scrollTo(0, 0);
+      console.log('mixin didTransition');
+      return true;
+    }
+  }
+});
+```
 
 ## SPA 应用中的实时交互问题及 ember.js + socket.io 的问题? 
 TODO 有思路以及方向, 但还需要具体方案在以及 demo 去实践, 寻找坑填坑.
