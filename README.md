@@ -77,9 +77,20 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 现在刚刚熟悉 ember.js 的时候要编写批量保存的时候, 思路是想着在页面上为 checkbox 设置自己的 name 属性进行提交, 但实际上应该将提交的属性名字交由 ES.Model 去处理. 我没有在 Ember Data 中找到这样对批量更新的支持, 所以两种方式:
 第一种, 将批量变为借用 Ember Data 的 Model 中每一个的 save. 第二种通过 Ember Data 的 Model 收集数据, 然后 Ember.$.ajax 进行自行提交, 但需要自行处理 DS.Model.isDrity 的问题.
 
-## 使用 ember-data 如何处理分页的问题?
+## [60%]使用 ember-data 如何处理分页的问题?
 这个问题从 ruby-china 上的一个问题引发过来的, 开始自己还没想到这. 
 找到的一个分页例子代码: [Pagination with Ember](http://hawkins.io/2013/07/pagination-with-ember/)
+
+分页的问题有两个选择, 一个为本地分页, 一个为远程分页. 个人倾向: 远程分页.
+
+#### 本地分页
+这个需要利用 ember-data 将数据全部加载到前端的 identity map 缓存住. 但还需要考虑的一个问题是, 这里缓存的数据需要在什么时机与后端的数据进行同步? 进行分页后, 如果控制缓存中直接访问"第N页"? 
+
+#### 远程分页
+这种方式与原有的结构结合比较容易, 分页的代码交给后端处理, 前端提供参数以及 URL 来访问不同的页面, 并且每一次的分页 URL 请求都将根据 model.id 来更新前端的 identity map 的缓存.
+但这种效果肯定是没有本地分页的那个速度的.
+
+从这两个问题我才理解为什么会有 [ember-restless](https://github.com/bustlelabs/ember-restless), 因为很多时候我真的不需要 identity map 这个特性, 即使我退一步每一次数据请求都是通过 Ajax, 即使请求的数据没有缓存. 通过 Ajax 化获取数据, 并将网络控制在一定范围内效果已经非常不错了. (虽然类似 Gmail 这样的应用, 前端的数据使用了缓存)
 
 ## [x]ember.js 中通过 Ajax 请求超时后怎么办?
 这个学习 Gmail 的应用, 所有需要应对远程的请求, 先进行网络处理并带有非阻拦式的提示处理框, 当成功后页面 UI 做响应处理. 其次出现网络问题, 在页面给予提示处理. (Ajax 体验类型的问题, 都可以参考 Gmail 这个 SPA Web App)
@@ -133,14 +144,29 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 现在还是建议使用 `{{my-component}}` 的形式, `angle bracket components` 还是等 Ember 1.13 更新了文档了解清楚后再使用. 因为使用后者还是有一些小问题, 例如 Component 中的 tagName 属性失效了. 
 还有例如: 现在传入 Component 的 `model` todo, 会自动标记为 `mutable` 拥有 `update` 函数, 同时在 Component 中作为参数的 `todo` 和 `attrs.todo` 都可使用, 但不知道具体会有什么区别, 这个也需要等待文档更新(何时判断为传入 function 的参数? 何时判断为 attrs?).
 
+## [x]ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
+ember-cli 中的 [Content Security Policy](http://content-security-policy.com), 在 emberjs 中使用的是 [ember-cli content-security-policy addon](https://github.com/rwjblue/ember-cli-content-security-policy), 例如: 在 `enviroment.js` 文件中添加: 
+
+```javascript
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self' https://cdn.mxpnl.com", // Allow scripts from https://cdn.mxpnl.com
+      'font-src': "'self' http://fonts.gstatic.com", // Allow fonts to be loaded from http://fonts.gstatic.com
+      'connect-src': "'self' https://api.mixpanel.com http://custom-api.local", // Allow data (ajax/websocket) from api.mixpanel.com and custom-api.local
+      'img-src': "'self' https://ruby-china.org https://*.upaiyun.com",
+      'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com", // Allow inline styles and loaded CSS from http://fonts.googleapis.com
+      'media-src': "'self'"
+    }
+```
+
+## [x]开发中碰到 scroll 的状态在页面 transition 后记录, 但是我们希望他不被记录, 每次页面转换都是在最上面.
+这个问题 emberjs 有官方解答 [RESETTING SCROLL ON ROUTE CHANGES](http://guides.emberjs.com/v1.10.0/cookbook/user_interface_and_interaction/resetting_scroll_on_route_changes/), 使用 mixin 进行解决.
+
 ## SPA 应用中的实时交互问题及 ember.js + socket.io 的问题? 
 TODO 有思路以及方向, 但还需要具体方案在以及 demo 去实践, 寻找坑填坑.
 
 ## ember.js 应用如何使用 socket.io 与 rails 结合起来组成实时信息推送的问题?
 TODO rails -> redis pub,  redis sub -> socket.io -> ember.js?
-
-## ember-cli 中在开发环境中不断出现的 Content Security Policy violation 提示还不知道如何解决?
-TODO ember-cli 提示我有一些内容有安全问题, 但我现在还不知道如何解决.
 
 ## 产品环境如何部署 ember-cli, socket.io, rails ?
 TODO 难道使用 docker 将三个东西打包到一起进行更新?
