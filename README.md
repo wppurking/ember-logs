@@ -1,6 +1,10 @@
 # 目的
 用于练习 Ember.js + Rails 的组合的 demo 应用及寻坑
 
+# ember stack
+ember.js 社区的变化太快了, 从 ember stack 大的方向来说, 已经从 ember.js 已经成长到了 [ember.js](https://github.com/emberjs/ember.js), [ember-data](https://github.com/emberjs/data), [ember-cli](https://github.com/ember-cli/ember-cli), [Liquid Fire](https://github.com/ef4/liquid-fire), [List View](https://github.com/emberjs/list-view) 5 个套间的统一版本发布.
+从 ember.js 这一个项目看, 在其进入 ember.js 1.12 后变化越来越快, 新的 render enging 新的 component 语法, 新的 action 语法(嵌套), 以及即将到来的 routable component.  因为这些变化, 使得我记录在下面的没有办法那么快的更新, 同时我也只能记录与特性无关的思路性的内容. 开始拥抱 ember.js 吧, 从 ember.js-1.13 开始.
+
 # Tech stack(import point):
 
 * ember-cli : ember.js 开发的工具集 (类似 rails 的 generate)
@@ -45,17 +49,17 @@
 这个问题其实就是在浏览器中运行的 JavaScript 的跨域安全问题, 如果一定需要部署一个 API 服务器给 Ember.js 进行跨域独立进行, 则需要服务器返回一系列的 Header 头信息和应对处理 Options 代替 HTTP Verb 中的 GET/PUT 请求.
 所以自己为了简便, 以及实际情况 Ember.js 与 rails api 并不会在两个域名下, 所以开发环境使用 ember-cli 提供的 `ember server --proxy http://localhost:3000` 解决了(ember-cli 已经想到这个事情了)
 
-[rails 5 内置 ralis api](https://github.com/rails/rails/pull/19832) 这个是可以持续关注的.
+cors 在 rails 中的应用可以直接使用 [rack-cors](https://github.com/cyu/rack-cors), 然后具体使用例子可参考 ruby-china [#263](https://github.com/ruby-china/ruby-china/pull/263)
 
-## [x]ember.js 与 rails api 交换数据的问题?
-在 rails 中用于与 ember.js 交换数据的 gem 最佳使用 active_model_serializers, 因为 DS.ActiveModelAdapter 原生支持(内部关系就是好), 其用于将 ruby 领域里面喜欢使用的 underscored 代码编写方式替换成 JavaScript 中的 camelCasing 形式
 
-## [x]ember.js 与 rails api 和 json-api 的问题?
-现在 ember.js 中的 DS.ActiveModelAdapter 还并不是 json-api:format, 现在还是在 rails 中比较常见的生成方法. 看着 json-api:format 的确是有点难搞, 但 ember.js 为了统一与外部 json api 的交互, 他们起草的这个规范的确有必要,
-不过 active_model_serializers 0.9 系列也已经开始支持 json-api:format 了, 所以也不用担心. 在现在这个时机, 使用 active_model_serializers 0.8-stable 分支和 DS.ActiveModelAdapter 足够.
+## [x]ember.js 与 rails api 交换数据的问题 (json-api)?
+现在(2015.6.18) ember-data 已经随着 ember.js 的版本发布了 ember-data 1.13, 同时 json-api 的规范中的 API 也进入稳定的 1.0.  ember-data 也将特定针对 ActiveModelSerialzer 的 Adatper 挪进了 addon 不再进行内置提供. 鼓励大家直接使用 json-api adapter.
+站在 rails 项目的角度, rails 5 将发 rails --api ([#19832](https://github.com/rails/rails/pull/19832)), [Active Model Serialzer](https://github.com/rails-api/active_model_serializers/) 也在 0.10 版本添加上了 JSONAPI Adapter 的支持.
+所以 rails 和 ember-data 之间的数据交互问题, 已经直接通过 JSONAPI 的中间规范解决了.
+
 
 ## [x]SPA 应用第一次访问的初始化加载的问题?
-现在 ember.js 正在着力开发 [FastBoot](https://github.com/tildeio/ember-cli-fastboot) [INSIDE FASTBOOT(1)](http://emberjs.com/blog/2014/12/22/inside-fastboot-the-road-to-server-side-rendering.html), [INSIDE FASTBOOT(2)](http://emberjs.com/blog/2015/01/08/inside-fastboot-faking-the-dom-in-node.html) 这个可以解决这个问题(看看 Discourse 中首次 URL 访问的 Preload js 数据), 所以现在可以不用自己担心在这个方向, 因为整个社区的大方向是这样.
+现在 ember.js 正在着力开发 [FastBoot](https://github.com/tildeio/ember-cli-fastboot);  [INSIDE FASTBOOT(1)](http://emberjs.com/blog/2014/12/22/inside-fastboot-the-road-to-server-side-rendering.html), [INSIDE FASTBOOT(2)](http://emberjs.com/blog/2015/01/08/inside-fastboot-faking-the-dom-in-node.html) 这个可以解决这个问题(看看 Discourse 中首次 URL 访问的 Preload js 数据), 所以现在可以不用自己担心在这个方向, 因为整个社区的大方向是这样.
 但现在需要一个过度方案, 现在的过度方案可以学的 Gmail 应用的首次访问的 js 加载进度条以及 js,css 文件访问 CDN 加速方案.
 以下是这个方案比较有用的参考链接:
 * [Experimentally verified: "Why client-side templating is wrong"](http://www.onebigfluke.com/2015/01/experimentally-verified-why-client-side.html?m=1)
@@ -69,7 +73,7 @@
 这个问题与我实现 todo item 的功能操作有关, 当自己测试将 todo item 量添加到大概 50 个左右的时候, 每一次改变其中一个 todo item 的 component 的值的时候, 整个 {{#each}} 中的所有 component 都重新计算一次, 
 现在还不清楚为什么整个 {{#each}} 中所有 component 都需要重算一次? 但如果后续还有如此的需求, 这样实现肯定是有性能问题的(需要观察正在进行中的新 Ember.js Dom Diff 渲染引擎会有多大改善)
 
-Ember 1.13.beta 引入的 [Glimmer Engine](https://github.com/emberjs/ember.js/pull/10501)已经有了变化, 原来添加一个新 todo 会重新渲染 50+ 个 todo item 而现在只渲染新增加的那一个, 速度改观非常明显, 这个问题 Ember 1.13 后已经不存在了.
+Ember 1.13 引入的 [Glimmer Engine](https://github.com/emberjs/ember.js/pull/10501)已经有了变化, 原来添加一个新 todo 会重新渲染 50+ 个 todo item 而现在只渲染新增加的那一个, 速度改观非常明显, 这个问题 Ember 1.13 后已经不存在了.
 * [isemberfastyet](https://www.isemberfastyet.com/)
 * [dbmonster](https://dbmonster.firebaseapp.com/)
 
@@ -100,8 +104,14 @@ Ember 1.13.beta 引入的 [Glimmer Engine](https://github.com/emberjs/ember.js/p
 ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来自 jQuery, Rails 社区的 Yehuda Katz 将好东西直接拿过了, 与 Rails 中的 Errors 处理基本上一个模子. 借用了 JavaScript 原生的 Error class 然后封装成 DS.Errors, 当 DS.Model 进行 save/update 等方法执行错误后需要满足两个条件则会自动解析内容并且填充到 DS.Model.errors 中, 其就是 DS.Errors 实例.
 
 1. 要求服务器端返回[ 422 错误](https://tools.ietf.org/html/rfc4918#section-11.2)
-2. 返回的结果是 {attribute: [...message]}. 
+2. 返回的结果是 {attribute: [...message]}.
 错误填充到 DS.Model.errors 然后在页面上可以 DS.Model.errors.username 获取展示错误以及通过 DS.Model.errors.messages 展示全部错误信息.
+
+在 ember-data 中, 已经根据 JSONAPI 规范进行了处理, 详情见: [#3194](https://github.com/emberjs/data/pull/3194)
+
+* 服务器响应 4xx , 5xx 错误
+* 使用专门的 error Object 来封装错误
+
 
 ## [x]ember.js 与 rails 之间如何进行数据批量保存/更新?
 现在刚刚熟悉 ember.js 的时候要编写批量保存的时候, 思路是想着在页面上为 checkbox 设置自己的 name 属性进行提交, 但实际上应该将提交的属性名字交由 ES.Model 去处理. 我没有在 Ember Data 中找到这样对批量更新的支持, 所以两种方式:
@@ -110,20 +120,24 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 2. 通过 Ember Data 的 Model 收集数据, 然后 Ember.$.ajax 进行自行提交, 但需要自行处理 DS.Model.isDrity 的问题
 这两种方法各有优点, 暂时还没办法直接替代.
 
-## [60%]使用 ember-data 如何处理分页的问题?
+## [x]使用 ember-data 如何处理分页的问题?
 这个问题从 ruby-china 上的一个问题引发过来的, 开始自己还没想到这. 
 找到的一个分页例子代码: [Pagination with Ember](http://hawkins.io/2013/07/pagination-with-ember/)
 
 分页的问题有两个选择, 一个为本地分页, 一个为远程分页. 个人倾向: 远程分页.
 
 #### 本地分页
-这个需要利用 ember-data 将数据全部加载到前端的 identity map 缓存住. 但还需要考虑的一个问题是, 这里缓存的数据需要在什么时机与后端的数据进行同步? 进行分页后, 如果控制缓存中直接访问"第N页"? 
+这个需要利用 ember-data 将数据全部加载到前端的 identity map 缓存住. 但还需要考虑的一个问题是, 这里缓存的数据需要在什么时机与后端的数据进行同步? 进行分页后, 如果控制缓存中直接访问"第N页"?
+可以参考 Gmail 这个应用, 他是拥有本地缓存分页的, 当你加载过数据后, 前后两页的数据是否缓存的, 但其没有仍然是没有给你明确的还有多少页, 只会提供 *下一页* 和 *上一页* 还有就是总数与当前页的数量, 他从用户使用的角度将传统的 1,2,3... page 的功能给省略了, 用户在当前页面处理数据并且自动帮用户加载数据.
 
 #### 远程分页
 这种方式与原有的结构结合比较容易, 分页的代码交给后端处理, 前端提供参数以及 URL 来访问不同的页面, 并且每一次的分页 URL 请求都将根据 model.id 来更新前端的 identity map 的缓存.
 但这种效果肯定是没有本地分页的那个速度的.
 
 从这两个问题我才理解为什么会有 [ember-restless](https://github.com/bustlelabs/ember-restless), 因为很多时候我真的不需要 identity map 这个特性, 即使我退一步每一次数据请求都是通过 Ajax, 即使请求的数据没有缓存. 通过 Ajax 化获取数据, 并将网络控制在一定范围内效果已经非常不错了. (虽然类似 Gmail 这样的应用, 前端的数据使用了缓存)
+
+#### ember-data 对分页的态度
+完整的讨论 [#1517](https://github.com/emberjs/data/pull/1517), 这个 pull request 还是没有被 merge, 因为 core team 对分页所可能出现的与服务器之间数据的创建和删除导致的页码不一致如何处理等还没有结论.
 
 ## [x]ember.js 中通过 Ajax 请求超时后怎么办?
 这个学习 Gmail 的应用, 所有需要应对远程的请求, 先进行网络处理并带有非阻拦式的提示处理框, 成功后再对页面 UI 做响应处理. 其次出现网络问题, 在页面给予提示处理. (Ajax 体验类型的问题, 都可以参考 Gmail 这个 SPA Web App)
@@ -170,16 +184,16 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 * then: Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler
 * catch: Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled
 
-## [90%]ember-cli 前端如何处理权限以及验证的问题?
+## [x]ember-cli 前端如何处理权限以及验证的问题?
 如果需要很多部分进行合作处理, 并且在参考了多个建立在 Ember 1.x 版本中的例子[ember-simple-auth](https://github.com/simplabs/ember-simple-auth) 以及 [torii](https://github.com/vestorly/torii). 下面是主要的思路:
 1. 需要使用 Service 在多个不同的上下文 Context 中共享一些用户登陆的信息, 并且需要自己处理用户体验方面的功能.
 2. 在 template 中需要使用到重复字段的时候, 需要使用到 Ember.Mixin. Ember 中专门用于共享页面上下文字段功能
 3. 根据所需要的功能, 将 Ember.Mixin 引入到 Router(在 beforeModel 中拦截请求) , Controller(在各种 Controller 里面共享变量) 上, 为需要进行验证的 Route 与 Controller 添加特性.
 
-#### 注意几个点
+#### [90%]注意几个点
 1. 与前端登陆/登陆/用户/错误信息等的完整一套在 service 中全部处理.
 2. 利用 mixin 将 service 中需要共享给 Router 与 Controller 的字段全部共享出去.
-3. 思考, 在 Ember 2.0(1.13) 中没有 Controller 了使用 [Routable Components](https://github.com/emberjs/rfcs/pull/38) 该如何处理?
+3. 思考, 在 Ember 2.1 中没有 Controller 了使用 [Routable Components](https://github.com/emberjs/rfcs/pull/38) 该如何处理?
 
 ## [70%]Ember 1.13 [Glimmer] 对 Component 中的 attrs 不同处理.
 在新 Glimmer 引擎下, 传入 Component 的参数都被存储在默认不可变的 `attrs` 中, 如果 attrs 与 Component 中有同名的属性会优先使用 *不可变* 的 attrs 中的.
@@ -227,3 +241,4 @@ TODO rails -> redis pub,  redis sub -> socket.io -> ember.js?
 
 ## 产品环境如何部署 ember-cli, socket.io, rails ?
 TODO 难道使用 docker 将三个东西打包到一起进行更新?
+
