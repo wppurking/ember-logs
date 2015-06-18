@@ -5,6 +5,11 @@
 ember.js 社区的变化太快了, 从 ember stack 大的方向来说, 已经从 ember.js 已经成长到了 [ember.js](https://github.com/emberjs/ember.js), [ember-data](https://github.com/emberjs/data), [ember-cli](https://github.com/ember-cli/ember-cli), [Liquid Fire](https://github.com/ef4/liquid-fire), [List View](https://github.com/emberjs/list-view) 5 个套间的统一版本发布.
 从 ember.js 这一个项目看, 在其进入 ember.js 1.12 后变化越来越快, 新的 render enging 新的 component 语法, 新的 action 语法(嵌套), 以及即将到来的 routable component.  因为这些变化, 使得我记录在下面的没有办法那么快的更新, 同时我也只能记录与特性无关的思路性的内容. 开始拥抱 ember.js 吧, 从 ember.js-1.13 开始.
 
+PS:
+* [List View](http://talks.erikbryn.com/ember-list-view/), 用于处理大量 Dom 在页面便利的问题, 避免内存溢出.
+* Liquid Fire, transition 的动画效果.
+
+
 # Tech stack(import point):
 
 * ember-cli : ember.js 开发的工具集 (类似 rails 的 generate)
