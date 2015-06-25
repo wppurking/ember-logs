@@ -122,8 +122,17 @@ ember.js 中使用 DS.Errors 来封装的 model 中的各项错误, 不愧是来
 现在刚刚熟悉 ember.js 的时候要编写批量保存的时候, 思路是想着在页面上为 checkbox 设置自己的 name 属性进行提交, 但实际上应该将提交的属性名字交由 ES.Model 去处理. 我没有在 Ember Data 中找到这样对批量更新的支持, 所以两种方式:
 
 1. 将批量变为借用 Ember Data 的 Model 中每一个的 save. 
-2. 通过 Ember Data 的 Model 收集数据, 然后 Ember.$.ajax 进行自行提交, 但需要自行处理 DS.Model.isDrity 的问题
+2. 通过 Ember Data 的 Model 收集数据, 然后 `ic-ajax` 进行自行提交, 但需要自行处理 DS.Model.isDrity 的问题
 这两种方法各有优点, 暂时还没办法直接替代.
+
+
+## [x]ember.js 中使用 jQuery 的 ajax 返回非标准的 Promise 如何解决?
+在 ember.js 中, 很多情况都会需要使用到 Ember.$.ajax 请求去处理异步的 action 操作或者额外的处理, 但调用的是 jQuery 的 ajax 方法, 返回的是 jQuery Defer 对象. 这里会有两个问题:
+
+1. 与 Ember.js 中整体使用的异步请求处理对象 Promise 不匹配.  具体体现在, `$.ajax()` 返回的 defer 对象无 finally 方法, 并且得使用 done, fail 来代替 Promise API 中的 then, catch.
+2. 事件没有最优化进入整个 Ember 的 [run loop](http://guides.emberjs.com/v1.12.0/understanding-ember/run-loop/)
+
+但其实, 如果使用 ember-cli 的话, 其生成的项目中已经内置了 [ember-cli-ic-ajax](https://github.com/rwjblue/ember-cli-ic-ajax), 要使用则在代码中 `import ajax from 'ic-ajax';` 即可使用 `ajax()` 方法代替原来的 `Ember.$.ajax()` 方法并且他们接收的参数是一样的.
 
 ## [x]使用 ember-data 如何处理分页的问题?
 这个问题从 ruby-china 上的一个问题引发过来的, 开始自己还没想到这. 
