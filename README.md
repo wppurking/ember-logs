@@ -1,8 +1,8 @@
 # 目的
 用于练习 Ember.js + Rails 的组合的 demo 应用及寻坑
 
-** 不再更新 **
-因为记录的东西太多, 使用这种方式进行更新很难快速定位碰到的各种问题, 所以换到自己的 OneNote 中记录.
+**内容的更新改变为以 issue 记录, 每一个问题拥有一个 issue 如果拥有了一个结论, 则标记 close 有结论. 可以使用 Github 的搜索来寻找这些问题以及答案.**
+
 
 # ember stack
 ember.js 社区的变化太快了, 从 ember stack 大的方向来说, 已经从 ember.js 已经成长到了 [ember.js](https://github.com/emberjs/ember.js), [ember-data](https://github.com/emberjs/data), [ember-cli](https://github.com/ember-cli/ember-cli), [Liquid Fire](https://github.com/ef4/liquid-fire), [List View](https://github.com/emberjs/list-view) 5 个套间的统一版本发布.
